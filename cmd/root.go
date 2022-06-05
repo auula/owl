@@ -25,6 +25,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/auula/deepscan/cmd/hex"
 	"github.com/auula/deepscan/cmd/md5"
 	"github.com/auula/deepscan/cmd/run"
 	"github.com/auula/deepscan/cmd/version"
