@@ -20,45 +20,69 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package cmd
+package scan
 
 import (
-	"os"
-
-	"github.com/auula/deepscan/cmd/md5"
-	"github.com/auula/deepscan/cmd/run"
-	"github.com/auula/deepscan/cmd/version"
-	"github.com/fatih/color"
-	"github.com/spf13/cobra"
+	"errors"
+	"strings"
 )
 
-const (
-	bannerStr = `
- 	 ____  ____  ____  ____  ___   ___    __    _  _ 
-	(  _ \( ___)( ___)(  _ \/ __) / __)  /__\  ( \( )
-	 )(_) ))__)  )__)  )___/\__ \( (__  /(__)\  )  ( 
-	(____/(____)(____)(__)  (___/ \___)(__)(__)(_)\_)
-  A dependency module feature scanning detection tool.
-`
+var (
+	ErrNotIsDir = errors.New("the current file is not a directory")
+	NilString   = ""
 )
 
-var banner string = color.BlueString(bannerStr)
-
-var rootCmd = &cobra.Command{
-	Use:   "deepscan",
-	Short: "deepscan is a dependency module feature scanning detection tool.",
-	Long:  banner,
+type Result struct {
+	Index int
+	Path  string
+	Code  string
 }
 
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		os.Exit(1)
+type Matcher interface {
+	Search(files []string, searchTerm string) ([]*Result, error)
+}
+
+type (
+	Md5Matcher struct{}
+	HexMatcher struct{}
+)
+
+func (m *Md5Matcher) Search(files []string, searchTerm string) ([]*Result, error) {
+	res := make([]*Result, 0)
+	for i, v := range files {
+		if md5, err := Md5(v); err != nil {
+			return nil, err
+		} else {
+			if md5 == searchTerm {
+				res = append(res, &Result{
+					Index: i + 1,
+					Path:  v,
+					Code:  md5,
+				})
+			}
+		}
 	}
+	return res, nil
 }
 
-func init() {
-	rootCmd.AddCommand(&version.Cmd)
-	rootCmd.AddCommand(&run.Cmd)
-	rootCmd.AddCommand(&md5.Cmd)
-	rootCmd.AddCommand(&hex.Cmd)
+func (m *HexMatcher) Search(files []string, searchTerm string) ([]*Result, error) {
+	res := make([]*Result, 0)
+	for i, v := range files {
+		strHex, err := HexDump(v)
+		if err != nil {
+			return nil, err
+		}
+		if strings.Contains(strHex, searchTerm) {
+			md5, err := Md5(v)
+			if err != nil {
+				return nil, err
+			}
+			res = append(res, &Result{
+				Index: i + 1,
+				Path:  v,
+				Code:  md5,
+			})
+		}
+	}
+	return res, nil
 }

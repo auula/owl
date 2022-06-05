@@ -21,3 +21,38 @@
 // SOFTWARE.
 
 package hex
+
+import (
+	"os"
+	"time"
+
+	"github.com/auula/deepscan/log"
+	"github.com/fatih/color"
+	"github.com/spf13/cobra"
+)
+
+const (
+	helpLong = `
+ 
+	Example:
+	
+	File that needs to be converted to hex 👇
+	$ ./tcascan hex --path=/user/desktop/test.txt
+
+	A file that needs to be converted to hex and redirected output 👇
+	$ ./tcascan hex --path=/user/desktop/test.txt --out=result.json
+	`
+)
+
+var Cmd = cobra.Command{
+	Use:   "md5",
+	Short: "Collection file md5",
+	Long:  color.GreenString(helpLong),
+	Run: func(cmd *cobra.Command, args []string) {
+		log.Info("Loading Files...")
+		start := time.Now()
+		elapsed := time.Since(start)
+		log.Info("Scanning time to complete: ", elapsed)
+		os.Exit(0)
+	},
+}

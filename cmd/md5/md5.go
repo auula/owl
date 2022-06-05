@@ -45,8 +45,8 @@ const (
 )
 
 var Cmd = cobra.Command{
-	Use:   "run",
-	Short: "Execute the scanner",
+	Use:   "md5",
+	Short: "Collection file md5",
 	Long:  color.GreenString(helpLong),
 	Run: func(cmd *cobra.Command, args []string) {
 		log.Info("Loading Files...")
