@@ -39,6 +39,11 @@ const (
 	fileMaxSize = 10 << 10 << 10 // 10MB
 )
 
+// IsFile check if the path is a file
+func IsFile(path string) bool {
+	return !IsDir(path)
+}
+
 // IsDir check if the path is a directory
 func IsDir(path string) bool {
 	s, err := os.Stat(path)
@@ -173,4 +178,37 @@ func (s *Scanner) Search(code string) ([]*Result, error) {
 		}
 	}
 	return nil, errors.New("the current path is not a directory")
+}
+
+func (s *Scanner) List() ([]*Result, error) {
+	res := make([]*Result, 0)
+	if IsFile(s.Path) {
+		md5, err := Md5(s.Path)
+		if err != nil {
+			return nil, err
+		}
+		res = append(res, &Result{
+			Index: 1,
+			Path:  s.Path,
+			Code:  md5,
+		})
+		return res, nil
+	}
+
+	if files, err := Files(s.Path); err != nil {
+		return nil, err
+	} else {
+		for i, v := range files {
+			if md5, err := Md5(v); err != nil {
+				return nil, err
+			} else {
+				res = append(res, &Result{
+					Index: i + 1,
+					Path:  v,
+					Code:  md5,
+				})
+			}
+		}
+	}
+	return res, nil
 }
