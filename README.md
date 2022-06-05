@@ -1,2 +1,2 @@
 # deepscan
-A file signature scanning tool for static analysis.
+A dependency module feature scanning detection tool for static analysis.
