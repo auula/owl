@@ -33,11 +33,6 @@ import (
 	"path/filepath"
 )
 
-var (
-	ErrBufferIsEmpty = errors.New("buffer is empty")
-	ErrFileIsEmpty   = errors.New("file path is empty")
-)
-
 const (
 	// When a single file exceeds this size limit
 	// the fragmented md5 algorithm will be used
@@ -152,4 +147,30 @@ func HexDump(path string) (string, error) {
 		return NilString, err
 	}
 	return hex.Dump(bytes), nil
+}
+
+type Scanner struct {
+	Matcher
+	Path string
+	Code string
+}
+
+func (s *Scanner) SetMatcher(m Matcher) {
+	s.Matcher = m
+}
+
+func (s *Scanner) SetPath(path string) {
+	s.Path = path
+}
+
+func (s *Scanner) Search(code string) ([]*Result, error) {
+	s.Code = code
+	if IsDir(s.Path) {
+		if files, err := Files(s.Path); err != nil {
+			return nil, err
+		} else {
+			return s.Matcher.Search(files, s.Code)
+		}
+	}
+	return nil, errors.New("the current path is not a directory")
 }
