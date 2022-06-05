@@ -25,7 +25,6 @@ package scan
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"errors"
 	"hash"
 	"io"
 	"io/ioutil"
@@ -177,7 +176,7 @@ func (s *Scanner) Search(code string) ([]*Result, error) {
 			return s.Matcher.Search(files, s.Code)
 		}
 	}
-	return nil, errors.New("the current path is not a directory")
+	return nil, ErrNotIsDir
 }
 
 func (s *Scanner) List() ([]*Result, error) {
@@ -211,4 +210,12 @@ func (s *Scanner) List() ([]*Result, error) {
 		}
 	}
 	return res, nil
+}
+
+func (s *Scanner) HexDump() (string, error) {
+	bytes, err := ioutil.ReadFile(s.Path)
+	if err != nil {
+		return NilString, err
+	}
+	return hex.Dump(bytes), nil
 }
