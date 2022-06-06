@@ -18,4 +18,4 @@ A dependency module feature scanning detection tool for static analysis.
 
 ### 原 理
 
-![](https://tva1.sinaimg.cn/large/e6c9d24egy1h2yvd1gw8dj20ms0cat9j.jpg)
+![](https://tva1.sinaimg.cn/large/e6c9d24egy1h2yvkgtmbwj20lo0ca0tl.jpg)
