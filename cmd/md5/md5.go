@@ -24,9 +24,10 @@ package md5
 
 import (
 	"os"
-	"time"
 
 	"github.com/auula/woodpecker/log"
+	"github.com/auula/woodpecker/scan"
+	"github.com/auula/woodpecker/table"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -44,15 +45,42 @@ const (
 	`
 )
 
+var path, out string
+
 var Cmd = cobra.Command{
 	Use:   "md5",
 	Short: "Collection file md5",
 	Long:  color.GreenString(helpLong),
 	Run: func(cmd *cobra.Command, args []string) {
-		log.Info("Loading Files...")
-		start := time.Now()
-		elapsed := time.Since(start)
-		log.Info("Scanning time to complete: ", elapsed)
-		os.Exit(0)
+		scan.Exec(func() {
+			scanner := new(scan.Scanner)
+			scanner.SetPath(path)
+			if res, err := scanner.List(); err != nil {
+				log.Warn(err)
+				os.Exit(1)
+			} else {
+				if out != "" {
+					if file, err := os.OpenFile(out, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); err != nil {
+						log.Warn(err)
+						file.Close()
+						os.Exit(1)
+					} else {
+						defer file.Close()
+						if err := scanner.Output(file, res); err != nil {
+							log.Warn(err)
+							os.Exit(1)
+						}
+						log.Info("The result has been redirected to: ", out)
+						os.Exit(0)
+					}
+				}
+				table.WriteTables(table.CommonTemplate(), res)
+			}
+		})
 	},
+}
+
+func init() {
+	Cmd.Flags().StringVar(&out, "out", "", "Data result output is saved to the specified file")
+	Cmd.Flags().StringVar(&path, "path", "", "The file path where the md5 value needs to be obtained")
 }

@@ -30,16 +30,12 @@ import (
 )
 
 var (
-	version    = "0.0.1.beta"
+	version    = "0.1.1.beta"
 	versionStr = `
-	 ____  ____  ____  ____  ___   ___    __    _  _ 
-	(  _ \( ___)( ___)(  _ \/ __) / __)  /__\  ( \( )
-	 )(_) ))__)  )__)  )___/\__ \( (__  /(__)\  )  ( 
-	(____/(____)(____)(__)  (___/ \___)(__)(__)(_)\_)
-    ├── Repository : github.com/auula/deepscan
+    Woodpecker Version Information:
+    ├── Repository : github.com/auula/woodpecker
     ├── System     : %s
     ├── Arch       : %s
-    ├── Commit     : 8de2bc6
     └── Version    : %s
 	`
 )
@@ -49,6 +45,6 @@ var Cmd = cobra.Command{
 	Short: "Version information",
 	Long:  "deepscan command line tools related information",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(fmt.Sprintf(versionStr, runtime.GOOS, runtime.GOARCH), version)
+		fmt.Println(fmt.Sprintf(versionStr, runtime.GOOS, runtime.GOARCH, version))
 	},
 }

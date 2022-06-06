@@ -25,11 +25,15 @@ package scan
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"encoding/json"
 	"hash"
 	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"time"
+
+	"github.com/auula/woodpecker/log"
 )
 
 const (
@@ -218,4 +222,30 @@ func (s *Scanner) HexDump() (string, error) {
 		return NilString, err
 	}
 	return hex.Dump(bytes), nil
+}
+
+func Exec(do func()) {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Warn(err)
+			os.Exit(1)
+		}
+	}()
+	log.Info("Loading Files...")
+	start := time.Now()
+	do()
+	elapsed := time.Since(start)
+	log.Info("Scanning time to complete: ", elapsed)
+	os.Exit(0)
+}
+
+func (s *Scanner) Output(writer io.Writer, res []*Result) error {
+	bytes, err := json.Marshal(res)
+	if err != nil {
+		return err
+	}
+	if _, err := writer.Write(bytes); err != nil {
+		return err
+	}
+	return nil
 }
