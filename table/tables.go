@@ -33,7 +33,7 @@ import (
 
 var CommonTemplate = func() *tablewriter.Table {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"🔢", "📃File Pathg", "🧬MD5"})
+	table.SetHeader([]string{"🔢", "📃File Path", "🧬MD5"})
 	table.SetHeaderColor(tablewriter.Colors{tablewriter.Bold, tablewriter.BgYellowColor},
 		tablewriter.Colors{tablewriter.Bold, tablewriter.BgGreenColor},
 		tablewriter.Colors{tablewriter.Bold, tablewriter.BgRedColor})

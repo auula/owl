@@ -36,46 +36,44 @@ const (
 	helpLong = `
  
 	Example:
-	
-	Scan the target data file or directory according to different feature codes 👇
-	$ ./woodpecker run --dir=/Users/ding/desktop/woodpecker/ --md5=86dsxxxxxxf888 --out=result.json
 
-	Find a file based on a specific hex value 👇
-	$ ./woodpecker run --dir=/Users/ding/desktop/woodpecker/ --hex=74 63 61 73 63 61 6e 2f
+	Scan the target data file or directory according to different feature codes 👇
+
+	$ ./woodpecker run --dir=/Users/ding/desktop/woodpecker/ --mode=md5 --code=81129dsxxxxx2d8123
+
+	Search according to different patterns 👇
+	$ ./woodpecker run --dir=/Users/ding/desktop/woodpecker/ --mode=hex --code=74 63 61 73 63 61 6e 2f --out=result.json
 	`
 )
 
-var md5, hex, dir, out string
+var mode, code, dir, out string
 
 var Cmd = cobra.Command{
 	Use:   "run",
 	Short: "Execute the scanner",
 	Long:  color.GreenString(helpLong),
 	Run: func(cmd *cobra.Command, args []string) {
-		if md5 == "" && hex == "" {
-			log.Warn("Match value can not be empty can be md5 or hexadecimal string")
-			os.Exit(1)
-		}
 		scan.Exec(func() {
 			scanner := new(scan.Scanner)
 			scanner.SetPath(dir)
-			if md5 != "" && hex == "" {
+			switch mode {
+			case "md5":
 				scanner.SetMatcher(new(scan.Md5Matcher))
-				if res, err := scanner.Search(md5); err != nil {
-					log.Warn(err)
-					os.Exit(1)
-				} else {
-					output(scanner, res)
-				}
-			}
-			if hex != "" && md5 == "" {
+			case "hex":
 				scanner.SetMatcher(new(scan.HexMatcher))
-				if res, err := scanner.Search(hex); err != nil {
-					log.Warn(err)
-					os.Exit(1)
-				} else {
-					output(scanner, res)
-				}
+			default:
+				log.Warn("Match search pattern is not sure")
+				os.Exit(1)
+			}
+			if code == "" {
+				log.Warn("Match value can not be empty can be md5 or hexadecimal string")
+				os.Exit(1)
+			}
+			if res, err := scanner.Search(code); err != nil {
+				log.Warn(err)
+				os.Exit(1)
+			} else {
+				output(scanner, res)
 			}
 		})
 	},
@@ -101,8 +99,7 @@ func output(scanner *scan.Scanner, res []*scan.Result) {
 }
 
 func init() {
-	Cmd.Flags().StringVar(&hex, "hex", "", "Find a file based on a specific hex value")
-	Cmd.Flags().StringVar(&out, "out", "", "Data result output is saved to the specified file")
-	Cmd.Flags().StringVar(&md5, "md5", "", "The file md5 value that needs to be matched")
+	Cmd.Flags().StringVar(&code, "code", "", "Requires search signature")
+	Cmd.Flags().StringVar(&mode, "mode", "", "Matcher search mode")
 	Cmd.Flags().StringVar(&dir, "dir", "", "Directory path to scan")
 }
