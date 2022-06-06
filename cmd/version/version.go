@@ -43,7 +43,7 @@ var (
 var Cmd = cobra.Command{
 	Use:   "version",
 	Short: "Version information",
-	Long:  "deepscan command line tools related information",
+	Long:  "Woodpecker command line tools related information",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(fmt.Sprintf(versionStr, runtime.GOOS, runtime.GOARCH, version))
 	},
