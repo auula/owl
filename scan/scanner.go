@@ -245,7 +245,7 @@ func Exec(do func()) {
 }
 
 // Output output result to writable io device
-func (s *Scanner) Output(writer io.Writer, res []*Result) error {
+func (*Scanner) Output(writer io.Writer, res []*Result) error {
 	bytes, err := json.Marshal(res)
 	if err != nil {
 		return err
