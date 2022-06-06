@@ -1,6 +1,6 @@
 .PHONY: build tcascan tools
 
-BINARY="deepscan"
+BINARY="woodpecker"
 
 darwin:
 	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ${BINARY}

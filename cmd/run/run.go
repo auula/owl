@@ -38,11 +38,9 @@ const (
 	Example:
 
 	Scan the target data file or directory according to different feature codes 👇
-
 	$ ./woodpecker run --dir=/Users/ding/desktop/woodpecker/ --mode=md5 --code=81129dsxxxxx2d8123
 
 	Search according to different patterns 👇
-	
 	$ ./woodpecker run --dir=/Users/ding/desktop/woodpecker/ --mode=hex --code=74 63 61 73 63 61 6e 2f --out=result.json
 	`
 )
