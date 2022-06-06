@@ -51,7 +51,7 @@ type (
 )
 
 // Search match search signatures by md5 in file collections
-func (m *Md5Matcher) Search(files []string, searchTerm string) ([]*Result, error) {
+func (*Md5Matcher) Search(files []string, searchTerm string) ([]*Result, error) {
 	res := make([]*Result, 0)
 	for i, v := range files {
 		if md5, err := Md5(v); err != nil {
@@ -70,7 +70,7 @@ func (m *Md5Matcher) Search(files []string, searchTerm string) ([]*Result, error
 }
 
 // Search match search signatures by hex in file collections
-func (m *HexMatcher) Search(files []string, searchTerm string) ([]*Result, error) {
+func (*HexMatcher) Search(files []string, searchTerm string) ([]*Result, error) {
 	res := make([]*Result, 0)
 	for i, v := range files {
 		strHex, err := HexDump(v)
