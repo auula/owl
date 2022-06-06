@@ -276,7 +276,7 @@ func Output(out string, scanner *Scanner, res []*Result) {
 }
 
 // OutFileString output content to the specified file
-func OutFileString(out string, scanner *Scanner, hexStr string) {
+func OutFileString(out string, _ *Scanner, hexStr string) {
 	if out != "" {
 		if file, err := os.OpenFile(out, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); err != nil {
 			log.Warn(err)
