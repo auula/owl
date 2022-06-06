@@ -79,11 +79,10 @@ func Files(folder string) ([]string, error) {
 // Md5 get the md5 value of the file based on the path
 func Md5(filepath string) (string, error) {
 	file, err := os.Open(filepath)
-
-	defer file.Close()
 	if err != nil {
 		return "", err
 	}
+	defer file.Close()
 
 	fileInfo, err := os.Stat(filepath)
 	if err != nil {
