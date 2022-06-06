@@ -38,10 +38,10 @@ const (
 	Example:
 	
 	Get the md5 value of the specified file 👇
-	$ ./deepscan md5 --path=/user/desktop/test.txt
+	$ ./woodpecker md5 --path=/user/desktop/test.txt
 
 	Get the md5 value of all files in the specified directory 👇
-	$ ./deepscan md5 --path=/user/desktop/directory --out=result.json
+	$ ./woodpecker md5 --path=/user/desktop/directory --out=result.json
 	`
 )
 
