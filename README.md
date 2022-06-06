@@ -101,7 +101,7 @@ $: ./owl hex --path=/Users/ding/Downloads/log4j-1.2.17.jar
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24egy1h2yz7v68cbj217g0u0h0x.jpg)
 
-如何就可以执行搜索了，搜索模式就指定`md5`和`hex`，命令如下：
+现在就可以扫描器进行扫描了，扫描模可以指定为`md5`或者`hex`，命令如下：
 
 ```bash
 $: ./owl run --dir=/Users/ding/Downloads/ --mode=md5 --code=04a41f0a068986f0f73485cf507c0f40
@@ -115,3 +115,46 @@ $: ./owl run --dir=/Users/ding/Downloads/ --mode=md5 --code=04a41f0a068986f0f734
 **搜索结果如果过多，可以通过`--out`参数将结果重定向保存到文件中保存，文件格式为`json`！**
 
 ### SDK方式
+
+上面介绍完是`command line`方式进行的，`owl`程序本身就是一个`command line`，核心逻辑还是在：[`github.com/auula/owl/scan`](github.com/auula/owl/scan) 这个包中编写的，如果想二次开发，那么就可以直接使用`go get github.com/auula/owl` 安装这个模块到你项目里面，然后直接通过硬编码的方式进行自定义编程；
+
+
+一个简单实例，通过自定义代码方式进行依赖文件扫描和收集：
+
+
+```go
+package main
+
+import (
+    "fmt"
+
+    "github.com/auula/owl/scan"
+)
+
+func main() {
+    // 创建扫描器
+    scanner := new(scan.Scanner)
+    // 设置扫描器路径     
+    scanner.SetPath("github.com/auula/owl") 
+    // 返回对应路径所有文件特征码
+    res, _ := scanner.List() 
+    fmt.Println(res)
+
+    // 设置指定的匹配器，其他匹配器查看API文档
+    scanner.SetMatcher(new(scan.Md5Matcher))
+    // 搜索包含特征码文件，返回文件记录集合
+    res, _ = scanner.Search("xxxx")
+
+    // 打开一个文件描述符
+    file, _ := os.OpenFile("res.json", os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0666)
+    // 将结果保存到指定文件中
+    scanner.Output(file, res)
+}
+```
+
+**以上就是通过`SDK`方式自定义编码完成依赖特征检测。**
+
+
+### 其他
+
+有问题欢迎提`issue`，工具不错的话记得按一个`⭐`，另外更强代码分析工具使用：[`https://github.com/Tencent/CodeAnalysis`](https://github.com/Tencent/CodeAnalysis)。
