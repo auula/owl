@@ -23,10 +23,11 @@
 package hex
 
 import (
+	"fmt"
 	"os"
-	"time"
 
 	"github.com/auula/woodpecker/log"
+	"github.com/auula/woodpecker/scan"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -44,15 +45,40 @@ const (
 	`
 )
 
+var path, out string
+
 var Cmd = cobra.Command{
 	Use:   "hex",
 	Short: "File hex encoding",
 	Long:  color.GreenString(helpLong),
 	Run: func(cmd *cobra.Command, args []string) {
-		log.Info("Loading Files...")
-		start := time.Now()
-		elapsed := time.Since(start)
-		log.Info("Scanning time to complete: ", elapsed)
-		os.Exit(0)
+		scanner := new(scan.Scanner)
+		scanner.SetPath(path)
+		if hexStr, err := scanner.HexDump(); err != nil {
+			log.Warn(err)
+			os.Exit(1)
+		} else {
+			if out != "" {
+				if file, err := os.OpenFile(out, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); err != nil {
+					log.Warn(err)
+					file.Close()
+					os.Exit(1)
+				} else {
+					defer file.Close()
+					if _, err := file.WriteString(hexStr); err != nil {
+						log.Warn(err)
+						os.Exit(1)
+					}
+					log.Info("The result has been redirected to: ", out)
+					os.Exit(0)
+				}
+			}
+			fmt.Println(color.GreenString(hexStr))
+		}
 	},
+}
+
+func init() {
+	Cmd.Flags().StringVar(&out, "out", "", "Data result output is saved to the specified file")
+	Cmd.Flags().StringVar(&path, "path", "", "The path to the file that needs to be converted to a hexadecimal string")
 }
