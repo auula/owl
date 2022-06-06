@@ -1,6 +1,6 @@
-.PHONY: build tcascan tools
+.PHONY: build owl tools
 
-BINARY="woodpecker"
+BINARY="owl"
 
 darwin:
 	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ${BINARY}
