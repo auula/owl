@@ -32,7 +32,7 @@ import (
 var (
 	version    = "0.1.1.beta"
 	versionStr = `
-    Woodpecker Version Information:
+    Woodpecker command line tools related information:
     ├── Repository : github.com/auula/woodpecker
     ├── System     : %s
     ├── Arch       : %s
