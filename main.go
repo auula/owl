@@ -23,7 +23,7 @@
 package main
 
 import (
-	"github.com/auula/deepscan/cmd"
+	"github.com/auula/woodpecker/cmd"
 )
 
 func main() {
