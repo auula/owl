@@ -85,7 +85,7 @@ Use "owl [command] --help" for more information about a command.
 $: ./owl md5 --path=/Users/ding/Downloads/log4j-1.2.17.jar
 ```
 
-**注意这里的特征码计算必须使用`owl`程序的算法，因为`owl`里面的算法针对大文件我是采用分片方案计算的，提升程序运行速度，所有如果使用其他软件的算法那么就会出现问题！**
+**注意这里的特征码计算必须使用`owl`程序的算法，因为`owl`里面的算法针对大文件我是采用分数据块方案计算的，提升程序运行速度，所以如果使用其他软件的算法那么就会出现问题！**
 
 结果如下：
 
@@ -116,7 +116,7 @@ $: ./owl run --dir=/Users/ding/Downloads/ --mode=md5 --code=04a41f0a068986f0f734
 
 ### SDK方式
 
-上面介绍完是`command line`方式进行的，`owl`程序本身就是一个`command line`，核心逻辑还是在：[`github.com/auula/owl/scan`](github.com/auula/owl/scan) 这个包中编写的，如果想二次开发，那么就可以直接使用`go get github.com/auula/owl` 安装这个模块到你项目里面，然后直接通过硬编码的方式进行自定义编程；
+上面介绍完是`command line`方式进行的，`owl`程序本身就是一个`command line`，核心逻辑在 [`github.com/auula/owl/scan`](github.com/auula/owl/scan) 这个包中编写的，如果想二次开发，那么就可以直接使用`go get github.com/auula/owl` 安装这个模块到你项目里面，然后直接通过硬编码的方式进行自定义编程；
 
 
 一个简单实例，通过自定义代码方式进行依赖文件扫描和收集：
