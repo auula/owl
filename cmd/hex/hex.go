@@ -38,10 +38,10 @@ const (
 	Example:
 	
 	File that needs to be converted to hex 👇
-	$ ./tcascan hex --path=/user/desktop/test.txt
+	$ ./woodpecker hex --path=/user/desktop/test.txt
 
 	A file that needs to be converted to hex and redirected output 👇
-	$ ./tcascan hex --path=/user/desktop/test.txt --out=result.json
+	$ ./woodpecker hex --path=/user/desktop/test.txt --out=result.json
 	`
 )
 
