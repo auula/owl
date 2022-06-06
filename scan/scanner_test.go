@@ -27,7 +27,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/auula/woodpecker/scan"
+	"github.com/auula/owl/scan"
 	"github.com/stretchr/testify/assert"
 )
 
