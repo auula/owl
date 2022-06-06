@@ -27,7 +27,7 @@
 package main
 
 import (
-	"github.com/auula/woodpecker/cmd"
+	"github.com/auula/owl/cmd"
 )
 
 // Program main entry

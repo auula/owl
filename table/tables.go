@@ -26,7 +26,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/auula/woodpecker/scan"
+	"github.com/auula/owl/scan"
 	"github.com/fatih/color"
 	"github.com/olekukonko/tablewriter"
 )

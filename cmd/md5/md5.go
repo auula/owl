@@ -25,9 +25,9 @@ package md5
 import (
 	"os"
 
-	"github.com/auula/woodpecker/log"
-	"github.com/auula/woodpecker/scan"
-	"github.com/auula/woodpecker/table"
+	"github.com/auula/owl/log"
+	"github.com/auula/owl/scan"
+	"github.com/auula/owl/table"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )

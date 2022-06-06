@@ -26,8 +26,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/auula/woodpecker/log"
-	"github.com/auula/woodpecker/scan"
+	"github.com/auula/owl/log"
+	"github.com/auula/owl/scan"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -38,10 +38,10 @@ const (
 	Example:
 	
 	File that needs to be converted to hex 👇
-	$ ./woodpecker hex --path=/user/desktop/test.txt
+	$ ./owl hex --path=/user/desktop/test.txt
 
 	A file that needs to be converted to hex and redirected output 👇
-	$ ./woodpecker hex --path=/user/desktop/test.txt --out=result.json
+	$ ./owl hex --path=/user/desktop/test.txt --out=result.json
 	`
 )
 

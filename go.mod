@@ -1,4 +1,4 @@
-module github.com/auula/woodpecker
+module github.com/auula/owl
 
 go 1.18
 

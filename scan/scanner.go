@@ -33,7 +33,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/auula/woodpecker/log"
+	"github.com/auula/owl/log"
 )
 
 const (

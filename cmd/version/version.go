@@ -30,20 +30,21 @@ import (
 )
 
 var (
-	version    = "0.1.1.beta"
+	version    = "0.1.2"
 	versionStr = `
-    Woodpecker command line tools related information:
-    ├── Repository : github.com/auula/woodpecker
-    ├── System     : %s
-    ├── Arch       : %s
-    └── Version    : %s
+Owl Tools related information:
+
+Repository : github.com/auula/owl
+System     : %s
+Arch       : %s
+Version    : %s
 	`
 )
 
 var Cmd = cobra.Command{
 	Use:   "version",
 	Short: "Version information",
-	Long:  "Woodpecker command line tools related information",
+	Long:  "Owl command line tools related information",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(fmt.Sprintf(versionStr, runtime.GOOS, runtime.GOARCH, version))
 	},

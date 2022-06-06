@@ -25,30 +25,30 @@ package cmd
 import (
 	"os"
 
-	"github.com/auula/woodpecker/cmd/hex"
-	"github.com/auula/woodpecker/cmd/md5"
-	"github.com/auula/woodpecker/cmd/run"
-	"github.com/auula/woodpecker/cmd/version"
+	"github.com/auula/owl/cmd/hex"
+	"github.com/auula/owl/cmd/md5"
+	"github.com/auula/owl/cmd/run"
+	"github.com/auula/owl/cmd/version"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
 const (
 	bannerStr = `
-  _    _  _____  _____  ____  ____  ____  ___  _  _  ____  ____ 
- ( \/\/ )(  _  )(  _  )(  _ \(  _ \( ___)/ __)( )/ )( ___)(  _ \
-  )    (  )(_)(  )(_)(  )(_) ))___/ )__)( (__  )  (  )__)  )   /
- (__/\__)(_____)(_____)(____/(__)  (____)\___)(_)\_)(____)(_)\_)
+			 _____  _    _  __   
+			(  _  )( \/\/ )(  )  
+			 )(_)(  )    (  )(__ 
+			(_____)(__/\__)(____) 🦉 v0.1.2 
    
  A dependency module feature scanning detection tool for static analysis.
 `
 )
 
-var banner string = color.GreenString(bannerStr)
+var banner string = color.CyanString(bannerStr)
 
 var rootCmd = &cobra.Command{
-	Use:   "woodpecker",
-	Short: "woodpecker is a dependency module feature scanning detection tool for static analysis.",
+	Use:   "owl",
+	Short: "owl is a dependency module feature scanning detection tool for static analysis.",
 	Long:  banner,
 }
 
