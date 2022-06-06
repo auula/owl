@@ -34,7 +34,6 @@ import (
 	"time"
 
 	"github.com/auula/woodpecker/log"
-	"github.com/auula/woodpecker/table"
 )
 
 const (
@@ -96,7 +95,7 @@ func Md5(filepath string) (string, error) {
 	hashed := md5.New()
 
 	if fileInfo.Size() >= fileMaxSize {
-		return blockMd5(file, fileInfo.Size(), hashed)
+		return BlockMd5(file, fileInfo.Size(), hashed)
 	} else {
 		io.Copy(hashed, file)
 	}
@@ -106,8 +105,8 @@ func Md5(filepath string) (string, error) {
 	return hex.EncodeToString(hashed.Sum(nil)), nil
 }
 
-// blockMd5 Built-in sharding md5 algorithm used
-func blockMd5(file *os.File, size int64, hashed hash.Hash) (string, error) {
+// BlockMd5 Built-in sharding md5 algorithm used
+func BlockMd5(file *os.File, size int64, hashed hash.Hash) (string, error) {
 	// Intercept data segment size window
 	var (
 		head = make([]byte, 500)
@@ -276,7 +275,6 @@ func Output(out string, scanner *Scanner, res []*Result) {
 			os.Exit(0)
 		}
 	}
-	table.WriteTables(table.CommonTemplate(), res)
 }
 
 // OutFileString output content to the specified file

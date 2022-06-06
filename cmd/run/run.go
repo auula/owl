@@ -27,6 +27,7 @@ import (
 
 	"github.com/auula/woodpecker/log"
 	"github.com/auula/woodpecker/scan"
+	"github.com/auula/woodpecker/table"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -72,6 +73,7 @@ var Cmd = cobra.Command{
 				os.Exit(1)
 			} else {
 				scan.Output(out, scanner, res)
+				table.WriteTables(table.CommonTemplate(), res)
 			}
 		})
 	},
@@ -81,4 +83,5 @@ func init() {
 	Cmd.Flags().StringVar(&code, "code", "", "Requires search signature")
 	Cmd.Flags().StringVar(&mode, "mode", "", "Matcher search mode")
 	Cmd.Flags().StringVar(&dir, "dir", "", "Directory path to scan")
+	Cmd.Flags().StringVar(&out, "out", "", "Data result output is saved to the specified file")
 }

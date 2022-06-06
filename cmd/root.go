@@ -40,15 +40,15 @@ const (
   )    (  )(_)(  )(_)(  )(_) ))___/ )__)( (__  )  (  )__)  )   /
  (__/\__)(_____)(_____)(____/(__)  (____)\___)(_)\_)(____)(_)\_)
    
-    A dependency module feature scanning detection tool.
+ A dependency module feature scanning detection tool for static analysis.
 `
 )
 
 var banner string = color.GreenString(bannerStr)
 
 var rootCmd = &cobra.Command{
-	Use:   "deepscan",
-	Short: "deepscan is a dependency module feature scanning detection tool.",
+	Use:   "woodpecker",
+	Short: "woodpecker is a dependency module feature scanning detection tool for static analysis.",
 	Long:  banner,
 }
 

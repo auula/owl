@@ -20,12 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// Woodpecker is a dependency module feature scanning detection tool for static analysis.
+// This program supports compiling into binary.
+// Author: Leon Ding <ding@ibyte.me>
+// Create Date: 2022-06-05
 package main
 
 import (
 	"github.com/auula/woodpecker/cmd"
 )
 
+// Program main entry
 func main() {
 	cmd.Execute()
 }

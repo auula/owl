@@ -27,6 +27,7 @@ import (
 
 	"github.com/auula/woodpecker/log"
 	"github.com/auula/woodpecker/scan"
+	"github.com/auula/woodpecker/table"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -59,6 +60,7 @@ var Cmd = cobra.Command{
 				os.Exit(1)
 			} else {
 				scan.Output(out, scanner, res)
+				table.WriteTables(table.CommonTemplate(), res)
 			}
 		})
 	},
