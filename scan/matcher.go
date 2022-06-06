@@ -32,21 +32,25 @@ var (
 	NilString   = ""
 )
 
+// Result content scan results
 type Result struct {
 	Index int
 	Path  string
 	Code  string
 }
 
+// Matcher scanner matcher
 type Matcher interface {
 	Search(files []string, searchTerm string) ([]*Result, error)
 }
 
 type (
+	// Matcher md5 and  hex implement
 	Md5Matcher struct{}
 	HexMatcher struct{}
 )
 
+// Search match search signatures by md5 in file collections
 func (m *Md5Matcher) Search(files []string, searchTerm string) ([]*Result, error) {
 	res := make([]*Result, 0)
 	for i, v := range files {
@@ -65,6 +69,7 @@ func (m *Md5Matcher) Search(files []string, searchTerm string) ([]*Result, error
 	return res, nil
 }
 
+// Search match search signatures by hex in file collections
 func (m *HexMatcher) Search(files []string, searchTerm string) ([]*Result, error) {
 	res := make([]*Result, 0)
 	for i, v := range files {

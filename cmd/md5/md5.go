@@ -27,7 +27,6 @@ import (
 
 	"github.com/auula/woodpecker/log"
 	"github.com/auula/woodpecker/scan"
-	"github.com/auula/woodpecker/table"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -59,22 +58,7 @@ var Cmd = cobra.Command{
 				log.Warn(err)
 				os.Exit(1)
 			} else {
-				if out != "" {
-					if file, err := os.OpenFile(out, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); err != nil {
-						log.Warn(err)
-						file.Close()
-						os.Exit(1)
-					} else {
-						defer file.Close()
-						if err := scanner.Output(file, res); err != nil {
-							log.Warn(err)
-							os.Exit(1)
-						}
-						log.Info("The result has been redirected to: ", out)
-						os.Exit(0)
-					}
-				}
-				table.WriteTables(table.CommonTemplate(), res)
+				scan.Output(out, scanner, res)
 			}
 		})
 	},

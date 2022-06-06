@@ -58,21 +58,7 @@ var Cmd = cobra.Command{
 			log.Warn(err)
 			os.Exit(1)
 		} else {
-			if out != "" {
-				if file, err := os.OpenFile(out, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); err != nil {
-					log.Warn(err)
-					file.Close()
-					os.Exit(1)
-				} else {
-					defer file.Close()
-					if _, err := file.WriteString(hexStr); err != nil {
-						log.Warn(err)
-						os.Exit(1)
-					}
-					log.Info("The result has been redirected to: ", out)
-					os.Exit(0)
-				}
-			}
+			scan.OutFileString(out, scanner, hexStr)
 			fmt.Println(color.GreenString(hexStr))
 		}
 	},

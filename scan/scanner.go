@@ -34,6 +34,7 @@ import (
 	"time"
 
 	"github.com/auula/woodpecker/log"
+	"github.com/auula/woodpecker/table"
 )
 
 const (
@@ -157,20 +158,24 @@ func HexDump(path string) (string, error) {
 	return hex.Dump(bytes), nil
 }
 
+// Scanner universal scanner
 type Scanner struct {
 	Matcher
 	Path string
 	Code string
 }
 
+// SetMatcher setting matcher scanner
 func (s *Scanner) SetMatcher(m Matcher) {
 	s.Matcher = m
 }
 
+// SetPath setting path scanner
 func (s *Scanner) SetPath(path string) {
 	s.Path = path
 }
 
+// Search search signature
 func (s *Scanner) Search(code string) ([]*Result, error) {
 	s.Code = code
 	if IsDir(s.Path) {
@@ -183,6 +188,7 @@ func (s *Scanner) Search(code string) ([]*Result, error) {
 	return nil, ErrNotIsDir
 }
 
+// List returns all files under the specified path to calculate the signature
 func (s *Scanner) List() ([]*Result, error) {
 	res := make([]*Result, 0)
 	if IsFile(s.Path) {
@@ -216,6 +222,7 @@ func (s *Scanner) List() ([]*Result, error) {
 	return res, nil
 }
 
+// HexDump convert path content to hexadecimal
 func (s *Scanner) HexDump() (string, error) {
 	bytes, err := ioutil.ReadFile(s.Path)
 	if err != nil {
@@ -224,6 +231,7 @@ func (s *Scanner) HexDump() (string, error) {
 	return hex.Dump(bytes), nil
 }
 
+// Exec execution statistics time
 func Exec(do func()) {
 	defer func() {
 		if err := recover(); err != nil {
@@ -239,6 +247,7 @@ func Exec(do func()) {
 	os.Exit(0)
 }
 
+// Output output result to writable io device
 func (s *Scanner) Output(writer io.Writer, res []*Result) error {
 	bytes, err := json.Marshal(res)
 	if err != nil {
@@ -248,4 +257,43 @@ func (s *Scanner) Output(writer io.Writer, res []*Result) error {
 		return err
 	}
 	return nil
+}
+
+// Output send the specified content to the console or file
+func Output(out string, scanner *Scanner, res []*Result) {
+	if out != "" {
+		if file, err := os.OpenFile(out, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); err != nil {
+			log.Warn(err)
+			file.Close()
+			os.Exit(1)
+		} else {
+			defer file.Close()
+			if err := scanner.Output(file, res); err != nil {
+				log.Warn(err)
+				os.Exit(1)
+			}
+			log.Info("The result has been redirected to: ", out)
+			os.Exit(0)
+		}
+	}
+	table.WriteTables(table.CommonTemplate(), res)
+}
+
+// OutFileString output content to the specified file
+func OutFileString(out string, scanner *Scanner, hexStr string) {
+	if out != "" {
+		if file, err := os.OpenFile(out, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); err != nil {
+			log.Warn(err)
+			file.Close()
+			os.Exit(1)
+		} else {
+			defer file.Close()
+			if _, err := file.WriteString(hexStr); err != nil {
+				log.Warn(err)
+				os.Exit(1)
+			}
+			log.Info("The result has been redirected to: ", out)
+			os.Exit(0)
+		}
+	}
 }
