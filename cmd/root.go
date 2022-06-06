@@ -25,10 +25,10 @@ package cmd
 import (
 	"os"
 
-	"github.com/auula/deepscan/cmd/hex"
-	"github.com/auula/deepscan/cmd/md5"
-	"github.com/auula/deepscan/cmd/run"
-	"github.com/auula/deepscan/cmd/version"
+	"github.com/auula/woodpecker/cmd/hex"
+	"github.com/auula/woodpecker/cmd/md5"
+	"github.com/auula/woodpecker/cmd/run"
+	"github.com/auula/woodpecker/cmd/version"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )

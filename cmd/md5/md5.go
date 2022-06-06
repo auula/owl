@@ -26,7 +26,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/auula/deepscan/log"
+	"github.com/auula/woodpecker/log"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
