@@ -1,0 +1,20 @@
+version = 1
+
+[[analyzers]]
+name = "test-coverage"
+enabled = true
+
+[[analyzers]]
+name = "go"
+enabled = true
+
+  [analyzers.meta]
+  import_root = "github.com/auula/woodpecker"
+
+[[transformers]]
+name = "gofmt"
+enabled = true
+
+[[transformers]]
+name = "gofumpt"
+enabled = true
