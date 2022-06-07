@@ -34,9 +34,9 @@ var (
 
 // Result content scan results
 type Result struct {
-	Index int
-	Path  string
-	Code  string
+	Index int    `json:"index,omitempty"`
+	Path  string `json:"path,omitempty"`
+	Code  string `json:"code,omitempty"`
 }
 
 // Matcher scanner matcher

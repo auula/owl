@@ -75,7 +75,7 @@ Flags:
 Use "owl [command] --help" for more information about a command.
 ```
 
-如果不知道子命令如何使用，可以在对应的子目录后面参入`--help`参数，即可得到帮助信息：
+如果不知道子命令如何使用，可以在对应的子命令后面参入`--help`参数，即可得到帮助信息：
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24egy1h2yz0laxdyj22ax0u07bb.jpg)
 
