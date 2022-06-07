@@ -17,7 +17,7 @@ windows:
 clean:
 	@if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
 	@if [ -f ${BINARY}.exe ] ; then rm ${BINARY}.exe ; fi
-	@echo "Clean up executable binaries successful."
+	@echo "Clean up executable binary successful."
 
 help:
 	@echo "make darwin	| Compile executable binary for MacOS platform."
