@@ -38,7 +38,7 @@ $: make help
 make darwin	| Compile executable binary for MacOS platform
 make linux	| Compile executable binary for Linux platform
 make windows	| Compile executable binary for Windows platform
-make clean	| Clean up executable binaries
+make clean	| Clean up executable binary
 ```
 
 `Owl`起因也是为`CodeAnalysis`所编写的特征检测工具，所以你也可以在：[`https://github.com/Tencent/CodeAnalysis`](https://github.com/Tencent/CodeAnalysis/tree/main/tools/owl) 这个项目下面的`tools`目录找到已经编译好的二进制可执行文件，下载对应平台的二进制文件即可。

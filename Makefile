@@ -20,7 +20,7 @@ clean:
 	@echo "Clean up executable binaries successful."
 
 help:
-	@echo "make darwin	| Compile executable binary for MacOS platform"
-	@echo "make linux	| Compile executable binary for Linux platform"
-	@echo "make windows	| Compile executable binary for Windows platform"
-	@echo "make clean	| Clean up executable binaries"
+	@echo "make darwin	| Compile executable binary for MacOS platform."
+	@echo "make linux	| Compile executable binary for Linux platform."
+	@echo "make windows	| Compile executable binary for Windows platform."
+	@echo "make clean	| Clean up executable binary."
