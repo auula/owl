@@ -22,7 +22,7 @@ A dependency module feature scanning detection tool for static analysis.
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24egy1h2yvkgtmbwj20lo0ca0tl.jpg)
 
-`Owl`类似于杀毒软件一样，和杀毒软件的工作原理差不多，`Owl`会根据依赖文件的特征码来扫描整个项目，和杀毒病毒库工作原理类似。当然如果严重按照杀毒软件那种标准做的话，可能涉及一些汇编相关的，目前`owl`功能实现还没有那么复杂，后面会版本会加入`codeql`代码分析引擎，通过`codeql`的数据库来做静态分析功能增强。
+`Owl`类似于杀毒软件一样，和杀毒软件的工作原理差不多，`Owl`会根据依赖文件的特征码来扫描整个项目，和杀毒病毒库工作原理类似。当然如果严格按照杀毒软件那种标准做的话，可能涉及一些汇编相关的，目前`owl`功能实现还没有那么复杂，后面会版本会加入`codeql`代码分析引擎，通过`codeql`的数据库来做静态分析功能增强。
 
 ### 快速开始
 
