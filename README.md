@@ -116,7 +116,7 @@ $: ./owl run --dir=/Users/ding/Downloads/ --mode=md5 --code=04a41f0a068986f0f734
 
 ### SDK方式
 
-上面介绍完是`command line`方式进行的，`owl`程序本身就是一个`command line`，核心逻辑在 [`github.com/auula/owl/scan`](https://github.com/auula/owl/scan) 这个包中编写的，如果想二次开发，那么就可以直接使用`go get github.com/auula/owl` 安装这个模块到你项目里面，然后直接通过硬编码的方式进行自定义编程；
+上面介绍完是`command line`方式进行的，`owl`程序本身就是一个`command line`，核心逻辑在 [`github.com/auula/owl/scan`](https://github.com/auula/owl/tree/main/scan) 这个包中编写的，如果想二次开发，那么就可以直接使用`go get github.com/auula/owl` 安装这个模块到你项目里面，然后直接通过硬编码的方式进行自定义编程；
 
 
 一个简单实例，通过自定义代码方式进行依赖文件扫描和收集：
