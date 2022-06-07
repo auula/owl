@@ -41,7 +41,7 @@ make windows	| Compile executable binary for Windows platform
 make clean	| Clean up executable binaries
 ```
 
-`Owl`起因也是为`CodeAnalysis`所编写的特征检测工具，所以你也可以在：[`https://github.com/Tencent/CodeAnalysis`](https://github.com/Tencent/CodeAnalysis/tree/main/tools/feature_check) 这个项目下面的`tools`目录找到已经编译好的二进制可执行文件，下载对应平台的二进制文件即可。
+`Owl`起因也是为`CodeAnalysis`所编写的特征检测工具，所以你也可以在：[`https://github.com/Tencent/CodeAnalysis`](https://github.com/Tencent/CodeAnalysis/tree/main/tools/owl) 这个项目下面的`tools`目录找到已经编译好的二进制可执行文件，下载对应平台的二进制文件即可。
 
 ### 如何使用
 
@@ -97,11 +97,11 @@ $: ./owl md5 --path=/Users/ding/Downloads/log4j-1.2.17.jar
 $: ./owl hex --path=/Users/ding/Downloads/log4j-1.2.17.jar
 ```
 
-程序会将对应的文件转成成十六进制字符串展示如下图：
+程序会将对应的文件转成十六进制字符串展示，如下图：
 
 ![](https://tva1.sinaimg.cn/large/e6c9d24egy1h2yz7v68cbj217g0u0h0x.jpg)
 
-现在就可以扫描器进行扫描了，扫描模可以指定为`md5`或者`hex`，命令如下：
+现在就可以使用扫描器进行扫描了，匹配模式可以指定为`md5`或者`hex`，未来可能会添加跟多的模式，命令如下：
 
 ```bash
 $: ./owl run --dir=/Users/ding/Downloads/ --mode=md5 --code=04a41f0a068986f0f73485cf507c0f40
