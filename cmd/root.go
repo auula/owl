@@ -29,6 +29,7 @@ import (
 	"github.com/auula/owl/cmd/md5"
 	"github.com/auula/owl/cmd/run"
 	"github.com/auula/owl/cmd/version"
+	"github.com/auula/owl/log"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -54,6 +55,7 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
+		log.Warn(err)
 		os.Exit(1)
 	}
 }
