@@ -48,7 +48,7 @@ var banner string = color.CyanString(bannerStr)
 
 var rootCmd = &cobra.Command{
 	Use:   "owl",
-	Short: "owl is a dependency module feature scanning detection tool for static analysis.",
+	Short: "Owl is a dependency module feature scanning detection tool for static analysis.",
 	Long:  banner,
 }
 

@@ -38,10 +38,10 @@ const (
 	Example:
 
 	Scan the target data file or directory according to different feature codes 👇
-	$ ./owl run --dir=/Users/ding/desktop/woodpecker/ --mode=md5 --code=81129dsxxxxx2d8123
+	$ ./owl run --dir=/user/desktop/directory --mode=md5 --code=81129dsxxxxx2d8123
 
 	Search according to different patterns 👇
-	$ ./owl run --dir=/Users/ding/desktop/woodpecker/ --mode=hex --code=74 63 61 73 63 61 6e 2f --out=result.json
+	$ ./owl run --dir=/user/desktop/directory --mode=hex --code=74 63 61 73 63 61 6e 2f --out=result.json
 	`
 )
 
@@ -73,7 +73,7 @@ var Cmd = cobra.Command{
 				os.Exit(1)
 			} else {
 				scan.Output(out, scanner, res)
-				table.WriteTables(table.CommonTemplate(), res)
+				table.WriteTables(table.CommonTemplate, res)
 			}
 		})
 	},

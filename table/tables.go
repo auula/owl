@@ -38,7 +38,7 @@ var CommonTemplate = func() *tablewriter.Table {
 		tablewriter.Colors{tablewriter.Bold, tablewriter.BgGreenColor},
 		tablewriter.Colors{tablewriter.Bold, tablewriter.BgRedColor})
 	return table
-}
+}()
 
 func WriteTables(table *tablewriter.Table, res []*scan.Result) {
 	var list [][]string

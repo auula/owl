@@ -38,10 +38,10 @@ const (
 	Example:
 	
 	Get the md5 value of the specified file 👇
-	$ ./woodpecker md5 --path=/user/desktop/test.txt
+	$ ./owl md5 --path=/user/desktop/test.txt
 
 	Get the md5 value of all files in the specified directory 👇
-	$ ./woodpecker md5 --path=/user/desktop/directory --out=result.json
+	$ ./owl md5 --path=/user/desktop/directory --out=result.json
 	`
 )
 
@@ -60,7 +60,7 @@ var Cmd = cobra.Command{
 				os.Exit(1)
 			} else {
 				scan.Output(out, scanner, res)
-				table.WriteTables(table.CommonTemplate(), res)
+				table.WriteTables(table.CommonTemplate, res)
 			}
 		})
 	},
