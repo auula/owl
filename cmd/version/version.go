@@ -26,11 +26,11 @@ import (
 	"fmt"
 	"runtime"
 
+	"github.com/auula/owl/scan"
 	"github.com/spf13/cobra"
 )
 
 var (
-	version    = "0.1.3"
 	versionStr = `
 Owl Tools related information:
 
@@ -46,6 +46,6 @@ var Cmd = cobra.Command{
 	Short: "Version information",
 	Long:  "Owl command line tools related information",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(fmt.Sprintf(versionStr, runtime.GOOS, runtime.GOARCH, version))
+		fmt.Println(fmt.Sprintf(versionStr, runtime.GOOS, runtime.GOARCH, scan.Version))
 	},
 }

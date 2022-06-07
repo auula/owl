@@ -40,6 +40,9 @@ const (
 	// When a single file exceeds this size limit
 	// the fragmented md5 algorithm will be used
 	fileMaxSize = 10 << 10 << 10 // 10MB
+
+	// Application version information
+	Version = "0.1.3"
 )
 
 // IsFile check if the path is a file

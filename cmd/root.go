@@ -23,6 +23,7 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/auula/owl/cmd/hex"
@@ -30,6 +31,7 @@ import (
 	"github.com/auula/owl/cmd/run"
 	"github.com/auula/owl/cmd/version"
 	"github.com/auula/owl/log"
+	"github.com/auula/owl/scan"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -39,13 +41,13 @@ const (
 			 _____  _    _  __   
 			(  _  )( \/\/ )(  )  
 			 )(_)(  )    (  )(__ 
-			(_____)(__/\__)(____) 🦉 v0.1.2 
+			(_____)(__/\__)(____) 🦉 %s 
    
  A dependency module feature scanning detection tool for static analysis.
 `
 )
 
-var banner string = color.CyanString(bannerStr)
+var banner string = color.CyanString(fmt.Sprintf(bannerStr, scan.Version))
 
 var rootCmd = &cobra.Command{
 	Use:   "owl",
