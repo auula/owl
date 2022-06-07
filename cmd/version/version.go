@@ -30,8 +30,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	versionStr = `
+var versionStr = `
 Owl Tools related information:
 
 Repository : github.com/auula/owl
@@ -39,7 +38,6 @@ System     : %s
 Arch       : %s
 Version    : %s
 	`
-)
 
 var Cmd = cobra.Command{
 	Use:   "version",
