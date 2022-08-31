@@ -22,13 +22,53 @@
 
 package search
 
+import (
+	"errors"
+	"os"
+
+	"github.com/auula/owl/scan"
+	"github.com/fatih/color"
+	"github.com/spf13/cobra"
+)
+
 const (
 	helpLong = `
  
 	Example:
 	
-	Get the md5 value of the specified file 👇
-	$ ./owl search
-
+	Scanning and searching of signature files 👇
+	$ ./owl search --md5=xxxxxxxxx
 	`
 )
+
+var path, code string
+
+var Cmd = cobra.Command{
+	Use:   "search",
+	Short: "Searching of signature files",
+	Long:  color.GreenString(helpLong),
+	Run: func(cmd *cobra.Command, args []string) {
+		code = os.Getenv("FEATURE_CODE")
+		path = os.Getenv("SOURCE_DIR")
+		scan.Exec(func() error {
+			if code != "" {
+				return errors.New("FEATURE_CODE or --code flag is empty")
+			}
+			if path != "" {
+				return errors.New("SOURCE_DIR or --path flag is empty")
+			}
+			scanner := &scan.Scanner{
+				Path:    path,
+				Code:    code,
+				Matcher: new(scan.Md5Matcher),
+			}
+			scanner.Search(code)
+			return nil
+		})
+	},
+}
+
+func init() {
+	Cmd.Flags().StringVar(&code, "code", "", "Requires search signature")
+	Cmd.Flags().StringVar(&path, "path", "", "The file path where the md5 value needs to be obtained")
+}
