@@ -23,7 +23,7 @@
 package search
 
 import (
-	"errors"
+	"fmt"
 	"os"
 
 	"github.com/auula/owl/scan"
@@ -51,18 +51,27 @@ var Cmd = cobra.Command{
 		code = os.Getenv("FEATURE_CODE")
 		path = os.Getenv("SOURCE_DIR")
 		scan.Exec(func() error {
-			if code != "" {
-				return errors.New("FEATURE_CODE or --code flag is empty")
-			}
-			if path != "" {
-				return errors.New("SOURCE_DIR or --path flag is empty")
-			}
 			scanner := &scan.Scanner{
 				Path:    path,
 				Code:    code,
 				Matcher: new(scan.Md5Matcher),
 			}
-			scanner.Search(code)
+			restca := make([]scan.ResultElement, 10)
+			if res, err := scanner.Search(code); err != nil {
+				return err
+			} else {
+				for _, v := range res {
+					restca = append(restca, scan.ResultElement{
+						Path:   v.Path,
+						Line:   "0",
+						Column: "0",
+						Msg:    fmt.Sprintf("匹配文件路径为：%v", v.Path),
+						Rule:   "",
+						Refs:   []scan.Ref{},
+					})
+				}
+				scan.SaveFile("result.json", scanner, restca)
+			}
 			return nil
 		})
 	},

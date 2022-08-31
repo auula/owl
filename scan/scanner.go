@@ -261,6 +261,17 @@ func (*Scanner) Output(writer io.Writer, res []*Result) error {
 	return nil
 }
 
+func (*Scanner) SaveFile(writer io.Writer, res []ResultElement) error {
+	bytes, err := json.Marshal(res)
+	if err != nil {
+		return err
+	}
+	if _, err := writer.Write(bytes); err != nil {
+		return err
+	}
+	return nil
+}
+
 // Output send the specified content to the console or file
 func Output(out string, scanner *Scanner, res []*Result) {
 	if out != "" {
@@ -271,6 +282,24 @@ func Output(out string, scanner *Scanner, res []*Result) {
 		} else {
 			defer file.Close()
 			if err := scanner.Output(file, res); err != nil {
+				log.Warn(err)
+				os.Exit(1)
+			}
+			log.Info("The result has been redirected to: ", out)
+			os.Exit(0)
+		}
+	}
+}
+
+func SaveFile(out string, scanner *Scanner, res []ResultElement) {
+	if out != "" {
+		if file, err := os.OpenFile(out, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); err != nil {
+			log.Warn(err)
+			file.Close()
+			os.Exit(1)
+		} else {
+			defer file.Close()
+			if err := scanner.SaveFile(file, res); err != nil {
 				log.Warn(err)
 				os.Exit(1)
 			}
@@ -297,4 +326,20 @@ func OutFileString(out string, _ *Scanner, hexStr string) {
 			os.Exit(0)
 		}
 	}
+}
+
+type ResultElement struct {
+	Path   string `json:"path"`
+	Line   string `json:"line"`
+	Column string `json:"column"`
+	Msg    string `json:"msg"`
+	Rule   string `json:"rule"`
+	Refs   []Ref  `json:"refs"`
+}
+
+type Ref struct {
+	Line string `json:"line"`
+	Msg  string `json:"msg"`
+	Tag  string `json:"tag"`
+	Path string `json:"path"`
 }
