@@ -37,7 +37,7 @@ const (
 	Example:
 	
 	Scanning and searching of signature files 👇
-	$ ./owl search --code=xxxxxxxxx
+	$ ./owl search --path=/xxx/xxx --code=xxxxxxxxx
 	`
 )
 
