@@ -20,44 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package log
-
-import (
-	"log"
-	"os"
-
-	"github.com/fatih/color"
-)
-
-var (
-	info *log.Logger
-	warn *log.Logger
-)
-
-var (
-	// Logger colors and log message prefixes
-	warnColor  = color.New(color.FgWhite, color.Bold, color.BgRed)
-	infoColor  = color.New(color.FgWhite, color.Bold, color.BgGreen)
-	redFont    = color.New(color.FgRed)
-	greenFont  = color.New(color.FgGreen)
-	warnPrefix = warnColor.Sprintf("WARN:")
-	infoPrefix = infoColor.Sprintf("INFO:")
-)
+package search
 
 const (
-	// Logger message format
-	format = log.Ldate | log.Ltime
+	helpLong = `
+ 
+	Example:
+	
+	Get the md5 value of the specified file 👇
+	$ ./owl search
+
+	`
 )
-
-func init() {
-	info = log.New(os.Stdout, infoPrefix, format)
-	warn = log.New(os.Stdout, warnPrefix, format)
-}
-
-func Info(v ...any) {
-	info.Output(2, greenFont.Sprint(v...))
-}
-
-func Warn(v ...any) {
-	warn.Output(2, redFont.Sprint(v...))
-}
