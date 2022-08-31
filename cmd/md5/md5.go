@@ -23,9 +23,6 @@
 package md5
 
 import (
-	"os"
-
-	"github.com/auula/owl/log"
 	"github.com/auula/owl/scan"
 	"github.com/auula/owl/table"
 	"github.com/fatih/color"
@@ -52,16 +49,16 @@ var Cmd = cobra.Command{
 	Short: "Collection file md5",
 	Long:  color.GreenString(helpLong),
 	Run: func(cmd *cobra.Command, args []string) {
-		scan.Exec(func() {
+		scan.Exec(func() error {
 			scanner := new(scan.Scanner)
 			scanner.SetPath(path)
 			if res, err := scanner.List(); err != nil {
-				log.Warn(err)
-				os.Exit(1)
+				return err
 			} else {
 				scan.Output(out, scanner, res)
 				table.WriteTables(table.CommonTemplate, res)
 			}
+			return nil
 		})
 	},
 }

@@ -231,7 +231,7 @@ func (s *Scanner) HexDump() (string, error) {
 }
 
 // Exec execution statistics time
-func Exec(do func()) {
+func Exec(do func() error) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.Warn(err)
@@ -240,7 +240,10 @@ func Exec(do func()) {
 	}()
 	log.Info("Loading Files...")
 	start := time.Now()
-	do()
+	if err := do(); err != nil {
+		log.Warn(err)
+		os.Exit(1)
+	}
 	elapsed := time.Since(start)
 	log.Info("Scanning time to complete: ", elapsed)
 	os.Exit(0)

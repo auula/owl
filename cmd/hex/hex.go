@@ -24,9 +24,7 @@ package hex
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/auula/owl/log"
 	"github.com/auula/owl/scan"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
@@ -52,15 +50,17 @@ var Cmd = cobra.Command{
 	Short: "File hex encoding",
 	Long:  color.GreenString(helpLong),
 	Run: func(cmd *cobra.Command, args []string) {
-		scanner := new(scan.Scanner)
-		scanner.SetPath(path)
-		if hexStr, err := scanner.HexDump(); err != nil {
-			log.Warn(err)
-			os.Exit(1)
-		} else {
-			scan.OutFileString(out, scanner, hexStr)
-			fmt.Println(color.GreenString(hexStr))
-		}
+		scan.Exec(func() error {
+			scanner := new(scan.Scanner)
+			scanner.SetPath(path)
+			if hexStr, err := scanner.HexDump(); err != nil {
+				return err
+			} else {
+				scan.OutFileString(out, scanner, hexStr)
+				fmt.Println(color.GreenString(hexStr))
+			}
+			return nil
+		})
 	},
 }
 

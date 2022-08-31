@@ -23,9 +23,8 @@
 package run
 
 import (
-	"os"
+	"errors"
 
-	"github.com/auula/owl/log"
 	"github.com/auula/owl/scan"
 	"github.com/auula/owl/table"
 	"github.com/fatih/color"
@@ -52,7 +51,7 @@ var Cmd = cobra.Command{
 	Short: "Execute the scanner",
 	Long:  color.GreenString(helpLong),
 	Run: func(cmd *cobra.Command, args []string) {
-		scan.Exec(func() {
+		scan.Exec(func() error {
 			scanner := new(scan.Scanner)
 			scanner.SetPath(dir)
 			switch mode {
@@ -61,20 +60,18 @@ var Cmd = cobra.Command{
 			case "hex":
 				scanner.SetMatcher(new(scan.HexMatcher))
 			default:
-				log.Warn("Match search pattern is not sure")
-				os.Exit(1)
+				return errors.New("Match search pattern is not sure")
 			}
 			if code == "" {
-				log.Warn("Match value can not be empty can be md5 or hexadecimal string")
-				os.Exit(1)
+				return errors.New("Match value can not be empty can be md5 or hexadecimal string")
 			}
 			if res, err := scanner.Search(code); err != nil {
-				log.Warn(err)
-				os.Exit(1)
+				return err
 			} else {
 				scan.Output(out, scanner, res)
 				table.WriteTables(table.CommonTemplate, res)
 			}
+			return nil
 		})
 	},
 }
