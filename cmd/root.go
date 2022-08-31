@@ -29,6 +29,7 @@ import (
 	"github.com/auula/owl/cmd/hex"
 	"github.com/auula/owl/cmd/md5"
 	"github.com/auula/owl/cmd/run"
+	"github.com/auula/owl/cmd/search"
 	"github.com/auula/owl/cmd/version"
 	"github.com/auula/owl/log"
 	"github.com/auula/owl/scan"
@@ -67,4 +68,5 @@ func init() {
 	rootCmd.AddCommand(&run.Cmd)
 	rootCmd.AddCommand(&md5.Cmd)
 	rootCmd.AddCommand(&hex.Cmd)
+	rootCmd.AddCommand(&search.Cmd)
 }
