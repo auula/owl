@@ -175,7 +175,7 @@ func (s *Scanner) SetPath(path string) {
 }
 
 // Search search signature
-func (s *Scanner) Search(code string) ([]*Result, error) {
+func (s *Scanner) Search(code string) ([]Result, error) {
 	s.Code = code
 	if IsDir(s.Path) {
 		if files, err := Files(s.Path); err != nil {
@@ -188,14 +188,14 @@ func (s *Scanner) Search(code string) ([]*Result, error) {
 }
 
 // List returns all files under the specified path to calculate the signature
-func (s *Scanner) List() ([]*Result, error) {
-	res := make([]*Result, 0)
+func (s *Scanner) List() ([]Result, error) {
+	res := make([]Result, 0)
 	if IsFile(s.Path) {
 		md5, err := Md5(s.Path)
 		if err != nil {
 			return nil, err
 		}
-		res = append(res, &Result{
+		res = append(res, Result{
 			Index: 1,
 			Path:  s.Path,
 			Code:  md5,
@@ -210,7 +210,7 @@ func (s *Scanner) List() ([]*Result, error) {
 			if md5, err := Md5(v); err != nil {
 				return nil, err
 			} else {
-				res = append(res, &Result{
+				res = append(res, Result{
 					Index: i + 1,
 					Path:  v,
 					Code:  md5,
@@ -250,7 +250,7 @@ func Exec(do func() error) {
 }
 
 // Output output result to writable io device
-func (*Scanner) Output(writer io.Writer, res []*Result) error {
+func (*Scanner) Output(writer io.Writer, res []Result) error {
 	bytes, err := json.Marshal(res)
 	if err != nil {
 		return err
@@ -273,7 +273,7 @@ func (*Scanner) SaveFile(writer io.Writer, res []ResultElement) error {
 }
 
 // Output send the specified content to the console or file
-func Output(out string, scanner *Scanner, res []*Result) {
+func Output(out string, scanner *Scanner, res []Result) {
 	if out != "" {
 		if file, err := os.OpenFile(out, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); err != nil {
 			log.Warn(err)

@@ -40,7 +40,7 @@ var CommonTemplate = func() *tablewriter.Table {
 	return table
 }()
 
-func WriteTables(table *tablewriter.Table, res []*scan.Result) {
+func WriteTables(table *tablewriter.Table, res []scan.Result) {
 	var list [][]string
 	for i, v := range res {
 		list = append(list, []string{

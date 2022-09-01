@@ -41,7 +41,7 @@ type Result struct {
 
 // Matcher scanner matcher
 type Matcher interface {
-	Search(files []string, searchTerm string) ([]*Result, error)
+	Search(files []string, searchTerm string) ([]Result, error)
 }
 
 type (
@@ -51,14 +51,14 @@ type (
 )
 
 // Search match search signatures by md5 in file collections
-func (*Md5Matcher) Search(files []string, searchTerm string) ([]*Result, error) {
-	res := make([]*Result, 0)
+func (*Md5Matcher) Search(files []string, searchTerm string) ([]Result, error) {
+	res := make([]Result, 0)
 	for i, v := range files {
 		if md5, err := Md5(v); err != nil {
 			return nil, err
 		} else {
 			if md5 == searchTerm {
-				res = append(res, &Result{
+				res = append(res, Result{
 					Index: i + 1,
 					Path:  v,
 					Code:  md5,
@@ -70,8 +70,8 @@ func (*Md5Matcher) Search(files []string, searchTerm string) ([]*Result, error) 
 }
 
 // Search match search signatures by hex in file collections
-func (*HexMatcher) Search(files []string, searchTerm string) ([]*Result, error) {
-	res := make([]*Result, 0)
+func (*HexMatcher) Search(files []string, searchTerm string) ([]Result, error) {
+	res := make([]Result, 0)
 	for i, v := range files {
 		strHex, err := HexDump(v)
 		if err != nil {
@@ -82,7 +82,7 @@ func (*HexMatcher) Search(files []string, searchTerm string) ([]*Result, error) 
 			if err != nil {
 				return nil, err
 			}
-			res = append(res, &Result{
+			res = append(res, Result{
 				Index: i + 1,
 				Path:  v,
 				Code:  md5,
