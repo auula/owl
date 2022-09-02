@@ -261,7 +261,7 @@ func (*Scanner) Output(writer io.Writer, res []Result) error {
 	return nil
 }
 
-func (*Scanner) SaveFile(writer io.Writer, res []ResultElement) error {
+func (*Scanner) SaveAs(writer io.Writer, res []ResultElement) error {
 	bytes, err := json.Marshal(res)
 	if err != nil {
 		return err
@@ -299,7 +299,7 @@ func SaveFile(out string, scanner *Scanner, res []ResultElement) {
 			os.Exit(1)
 		} else {
 			defer file.Close()
-			if err := scanner.SaveFile(file, res); err != nil {
+			if err := scanner.SaveAs(file, res); err != nil {
 				log.Warn(err)
 				os.Exit(1)
 			}
